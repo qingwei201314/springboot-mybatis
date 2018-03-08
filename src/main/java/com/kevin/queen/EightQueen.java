@@ -4,77 +4,113 @@ public class EightQueen {
 	static int[][] queens = new int[8][8];
 	// 处理8个子
 	static int queen = 0;
-	// 处理结果
-	static int result = 0;
 	// 当前位置
 	static int curI = -1;
 	static int curJ = -1;
+	// 第1子位置
+	static int oneI = -1;
+	static int oneJ = -1;
 
 	public static void main(String[] args) {
 		reset();
 
-		// 第一个子的位置
-		int startI = -1;
-		int startJ = -1;
+		setQueen(1, 0, 0);
+	}
 
-		while (true) {
-			// 放子是否成功
-			boolean success = false;
-			queen = queen + 1;
-			int i = startI >= 0 ? startI : 0;
-			int j = startJ >= 0 ? startJ : 0;
-			
-			for (; i < 8; i++) {
-				for (; j < 8; j++) {
-					if (queens[i][j] == 0) {
-						success = true;
-						queens[i][j] = 100 + queen;
-						curI = i;
-						curJ = j;
-						// 如果是第一个子
-						if (queen == 1) {
-							startI = i;
-							startJ = j;
-						}
-						// 将影响的格设置为1
-						setOne();
+	/**
+	 * 放子
+	 * 
+	 * @param queen
+	 *            当前在放的子
+	 * @param pI
+	 *            开始放的横坐标
+	 * @param pJ
+	 *            开始放的纵坐标
+	 */
+	private static void setQueen(int queen, int pI, int pJ) {
+		printTest();
 
-						// 放完后，要退出
-						break;
+		// 放子是否成功
+		boolean success = false;
+		int i = pI >= 0 ? pI : 0;
+		int j = pJ >= 0 ? pJ : 0;
+
+		for (; i < 8; i++) {
+			for (; j < 8; j++) {
+				if (queens[i][j] == 0) {
+					success = true;
+					queens[i][j] = 100 + queen;
+					curI = i;
+					curJ = j;
+
+					// 设置第1子位置
+					if (queen == 1) {
+						oneI = i;
+						oneJ = j;
 					}
-				}
-				j = 0;
-				if (success) {
-					break;
-				}
-			}
-			// 如果放子失败，说明方案错误 ，重置
-			if (!success) {
-				//第1子的位置往前挪一步
-				if (startJ < 7) {
-					startJ += 1;
-				} else if (startI < 7) {
-					startI += 1;
-					startJ = 0;
-				} else {
-					break;
-				}
-				reset();
-			}
 
-			// 如果已摆放8个，需要把结果打印出来
-			if (queen >= 8) { // 如果刚好放满，打印
-				printResult();
+					// 将影响的格设置为1
+					setOne();
+
+					// 放完后，要退出
+					break;
+				}
 			}
-			// 如果到最后一格，不处理
-			if (startI >= 7 && startJ >= 7) {
-				break;
-			}
-			if (result == 1) {
+			j = 0;
+			if (success) {
 				break;
 			}
 		}
-		System.out.println(result);
+
+		// 下一子开始放的坐标
+		int nextI = curI;
+		int nextJ = curJ;
+		if (success) { // 如果放子成功
+			if (queen >= 8) {
+				printResult();
+				return;
+			} else {
+				queen = queen + 1;
+				// 将位置向前移动一格
+				if (nextJ < 7) {
+					nextJ += 1;
+				} else if (nextI < 7) {
+					nextI += 1;
+					nextJ = 0;
+				} else {
+					// 如果向前移动已到最后
+					return;
+				}
+			}
+		} else { // 如果放子失败，说明方案错误 ，重置
+			queen = queen - 1;
+			if (queen < 1) { // 第1子错误
+				// 将第一子位置向前移动一格
+				if (oneJ < 7) {
+					oneJ += 1;
+				} else if (oneI < 7) {
+					oneI += 1;
+					oneJ = 0;
+				} else {
+					// 如果向前移动已到最后
+					return;
+				}
+				setQueen(queen, oneI, oneJ);
+			} else { // 调整其他子
+				// 将位置向前移动一格
+				if (nextJ < 7) {
+					nextJ += 1;
+				} else if (nextI < 7) {
+					nextI += 1;
+					nextJ = 0;
+				} else {
+					// 如果向前移动已到最后
+					return;
+				}
+				//这里要处理  to_do
+			}
+		}
+		setQueen(queen, nextI, nextJ);
 	}
 
 	/**
@@ -94,7 +130,6 @@ public class EightQueen {
 	 * 打印结果
 	 */
 	private static void printResult() {
-		result = result + 1;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (queens[i][j] > 100) {
@@ -108,7 +143,8 @@ public class EightQueen {
 		}
 		// 重置
 		reset();
-		System.out.println("==============================================" + result);
+		// System.out.println("==============================================" +
+		// result);
 	}
 
 	/**
@@ -184,5 +220,23 @@ public class EightQueen {
 				queens[topLeftI][topLeftJ] = 1;
 			}
 		}
+	}
+
+	/**
+	 * 打印中间结果，用于测试
+	 */
+	private static void printTest() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (queens[i][j] > 100) {
+					System.out.print(queens[i][j] + "      ");
+				} else {
+					System.out.print(queens[i][j] + "        ");
+				}
+
+			}
+			System.out.println("");
+		}
+		System.out.println("-----------------------------");
 	}
 }

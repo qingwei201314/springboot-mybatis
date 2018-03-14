@@ -1,7 +1,7 @@
 package com.kevin.queen;
 
 /**
- * 测试git
+ * 测试git  提交分支
  * @author Kevin Zhang @Date 2018年3月14日 下午8:13:19
  */
 public class EightQueen {

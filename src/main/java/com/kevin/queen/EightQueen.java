@@ -1,7 +1,7 @@
 package com.kevin.queen;
 
 /**
- * github上去掉
+ * 分支修改home1
  * @author Kevin Zhang @Date 2018年3月14日 下午8:13:19
  */
 public class EightQueen {

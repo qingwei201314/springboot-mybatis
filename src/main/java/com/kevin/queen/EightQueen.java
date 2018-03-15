@@ -1,7 +1,7 @@
 package com.kevin.queen;
 
 /**
- * company: 我修改company内容
+ * 八皇后问题
  * @author Kevin Zhang @Date 2018年3月14日 下午8:13:19
  */
 public class EightQueen {

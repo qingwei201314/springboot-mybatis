@@ -1,11 +1,12 @@
 package com.kevin;
 
+import java.lang.reflect.Field;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.kevin.dto.City;
 import com.kevin.mapper.CityMapper;
 
@@ -16,14 +17,19 @@ public class ThisWillActuallyRun {
 
 	@RequestMapping("/")
 	public City home() {
-		City city = cityMapper.selectCity(3);
+		City argCity = new City();
+		argCity.setId(2);
+		City city = cityMapper.testProvider(argCity);
 		return city;
 	}
 	
-	@RequestMapping("/string")
-	public String string() {
-		City city = cityMapper.findByState("CA");
-		return JSONObject.toJSONString(city);
+	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException {
+		City city = new City();
+		city.setId(new Integer(3));
+		Field[] fields = city.getClass().getDeclaredFields();
+		Field field = fields[1];
+		field.setAccessible(true);
+		Object o = field.get(city);
+		System.out.println(o);
 	}
-
 }

@@ -3,7 +3,6 @@ package com.kevin.queen;
 /**
  * company: 我修改company内容
  * @author Kevin Zhang @Date 2018年3月14日 下午8:13:19
- * master增加点内容
  */
 public class EightQueen {
 	static int[][] queens = new int[8][8];

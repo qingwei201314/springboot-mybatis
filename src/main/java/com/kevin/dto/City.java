@@ -2,10 +2,15 @@ package com.kevin.dto;
 
 import java.io.Serializable;
 
+import com.kevin.annotation.Column;
+import com.kevin.annotation.Table;
+
+@Table(name = "city")
 public class City implements Serializable{
 	private static final long serialVersionUID = -7116359891979693149L;
 	
 	private Integer id;
+	@Column(name = "name")
 	private String name;
 	private String state;
 	private String des;

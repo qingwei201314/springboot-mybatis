@@ -1,4 +1,4 @@
-package com.kevin;
+package com.kevin.controller;
 
 import java.lang.reflect.Field;
 
@@ -11,7 +11,7 @@ import com.kevin.dto.City;
 import com.kevin.mapper.CityMapper;
 
 @RestController
-public class ThisWillActuallyRun {
+public class SpringBootController {
 	@Resource
 	private CityMapper cityMapper;
 

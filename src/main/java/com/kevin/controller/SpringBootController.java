@@ -1,7 +1,5 @@
 package com.kevin.controller;
 
-import java.lang.reflect.Field;
-
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,17 +17,8 @@ public class SpringBootController {
 	public City home() {
 		City argCity = new City();
 		argCity.setId(2);
-		City city = cityMapper.testProvider(argCity);
+		City city = cityMapper.find(argCity);
 		return city;
 	}
 	
-	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException {
-		City city = new City();
-		city.setId(new Integer(3));
-		Field[] fields = city.getClass().getDeclaredFields();
-		Field field = fields[1];
-		field.setAccessible(true);
-		Object o = field.get(city);
-		System.out.println(o);
-	}
 }

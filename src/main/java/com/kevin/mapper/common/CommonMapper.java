@@ -9,6 +9,6 @@ public interface CommonMapper<T> {
 	
 	public void delete(Integer id);
 	
-	@SelectProvider(type = CommonProvider.class, method = "testCity")
-	T testProvider(T t);
+	@SelectProvider(type = CommonProvider.class, method = "find")
+	T find(T t);
 }

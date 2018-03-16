@@ -3,16 +3,18 @@ package com.kevin.dto;
 import java.io.Serializable;
 
 import com.kevin.annotation.Column;
+import com.kevin.annotation.Ignore;
 import com.kevin.annotation.Table;
 
 @Table(name = "city")
 public class City implements Serializable{
-	private static final long serialVersionUID = -7116359891979693149L;
+	private static final long serialVersionUID = -1719223572259294496L;
 	
 	private Integer id;
 	@Column(name = "name")
 	private String name;
 	private String state;
+	@Ignore
 	private String des;
 	
 	public String getName() {

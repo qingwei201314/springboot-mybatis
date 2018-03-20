@@ -1,6 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.11.55/test
+    url: jdbc:mysql://192.168.11.55/test?characterEncoding=UTF-8
     username: root
     password: devadmin123@
+
+logging.level.root: ERROR
+logging.level.com.kevin: DEBUG

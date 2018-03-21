@@ -1,6 +1,7 @@
 package com.kevin.mapper.common;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
@@ -42,7 +43,7 @@ public class CommonProvider {
 							Object o = field.get(t);
 							String value = o == null ? null : o.toString();
 							if(!"id".equals(fieldName) || ("id".equals(fieldName) && o != null)){
-								if (o instanceof String) { 													// 如果string类型, SQL里要加引号
+								if (o instanceof String || o instanceof Date) { 													// 如果string类型, SQL里要加引号
 									VALUES(fieldName, "'" + value + "'");
 								} else { 																	// 如果不是string类型，直接填值
 									VALUES(fieldName, value);

@@ -2,6 +2,7 @@ package com.kevin.mapper.common;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 
 /**
@@ -10,10 +11,12 @@ import org.apache.ibatis.annotations.SelectProvider;
  */
 public interface CommonMapper<T> {
 	@SelectProvider(type = CommonProvider.class, method = "save")
-	public boolean save(T t);
+	public void save(T t);
 	
-	public void delete(Integer id);
+	@SelectProvider(type = CommonProvider.class, method = "delete")
+	public void delete(@Param("id") Integer id, @Param("t") Class<T> t);
 	
+	@SelectProvider(type = CommonProvider.class, method = "update")
 	public T update(T t);
 	
 	@SelectProvider(type = CommonProvider.class, method = "find")

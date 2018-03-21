@@ -14,12 +14,14 @@ public class SpringBootController {
 	private CityMapper cityMapper;
 
 	@RequestMapping("/")
-	public boolean home() {
-		City argCity = new City();
-		argCity.setName("kevin1");
-		argCity.setState("2");
-		argCity.setDes("desc");
-		boolean result = cityMapper.save(argCity);
-		return result;
+	public String home() {
+		City city = new City();
+		city.setId(3468);
+		city.setName("1");
+		city.setState("2");
+		city.setCode("3");
+		city.setEname("4");
+		city = cityMapper.update(city);
+		return "success";
 	}
 }

@@ -1,8 +1,8 @@
 package com.kevin.mapper.common;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 
 /**
@@ -14,10 +14,13 @@ public interface CommonMapper<T> {
 	public void save(T t);
 	
 	@SelectProvider(type = CommonProvider.class, method = "delete")
-	public void delete(@Param("id") Integer id, @Param("t") Class<T> t);
+	public void delete(Integer id, Class<T> t);
 	
+	/**
+	 * 注意，更新之前, 输入参数t一定要从数据库中读出，不然很容易将其他字段置为空
+	 */
 	@SelectProvider(type = CommonProvider.class, method = "update")
-	public T update(T t);
+	public void update(Integer id, Map<String,Object> map, Class<T> t);
 	
 	@SelectProvider(type = CommonProvider.class, method = "find")
 	T findOne(T t);

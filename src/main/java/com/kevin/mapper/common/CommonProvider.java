@@ -1,9 +1,12 @@
 package com.kevin.mapper.common;
 
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.kevin.annotation.Column;
@@ -41,11 +44,15 @@ public class CommonProvider {
 							}
 
 							Object o = field.get(t);
-							String value = o == null ? null : o.toString();
 							if(!"id".equals(fieldName) || ("id".equals(fieldName) && o != null)){
-								if (o instanceof String || o instanceof Date) { 													// 如果string类型, SQL里要加引号
-									VALUES(fieldName, "'" + value + "'");
+								if (o instanceof String) { 													// 如果string类型, SQL里要加引号
+									VALUES(fieldName, "'" + o.toString() + "'");
+								} else if(o instanceof Date) {												// 如果是日期格式,转换成string: yyyy-MM-dd HH:mm:ss
+									DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+									String dateString = format.format((Date)o);
+									VALUES(fieldName, "'" + dateString + "'");
 								} else { 																	// 如果不是string类型，直接填值
+									String value = o == null ? "null" : o.toString();
 									VALUES(fieldName, value);
 								}
 							}
@@ -60,12 +67,12 @@ public class CommonProvider {
 	/**
 	 * 删除指定表，指id行的记录
 	 */
-	public static <T> String delete(@Param("id") final Integer id, @Param("t") final Class<T> t) {
+	public static <T> String delete(final Integer id, final Class<T> t) {
 		String sql = new SQL() {
 			{
 				String tableName = tableName(t);
 				DELETE_FROM(tableName);
-				WHERE("id = #{id}");
+				WHERE("id = " + id);
 			}
 		}.toString();
 		return sql;
@@ -74,39 +81,22 @@ public class CommonProvider {
 	/**
 	 * 更新数据库记录
 	 */
-	public static <T> String update(T t) throws IllegalAccessException {
+	public static <T> String update(Integer id, Map<String,Object> map, Class<T> t) {
 		String sql = new SQL() {
 			{
-				Class<?> entityClass = t.getClass();
-				String tableName = tableName(entityClass);
+				String tableName = tableName(t);
 
-				// 各字段，如果不为null, 且不为"", 则作为查询条件，并用and连接后，生成SQL
-				Field[] fields = entityClass.getDeclaredFields();
-				if (fields != null && fields.length > 0) {
+				Set<String> columns = map.keySet();
+				if (id != null && columns != null && columns.size() > 0) {
 					// 生成update
 					UPDATE(tableName);
-					String id = null;																		//主键id
-					for (Field field : fields) {
-						String fieldName = field.getName();
-						Ignore ignore = field.getAnnotation(Ignore.class);
-						if (!"serialVersionUID".equals(fieldName) && ignore == null) {
-							field.setAccessible(true);
-							Column column = field.getAnnotation(Column.class);
-							if (column != null) { 															// 如果有加列注解，用列的注解名
-								fieldName = column.name();
-							}
-
-							Object o = field.get(t);
-							String value = o == null ? null : o.toString();
-							if("id".equals(fieldName)){														//如果是主键，不set
-								id = value;
-							} else {
-								if (o instanceof String) { 													// 如果string类型, SQL里要加引号
-									SET(fieldName + "='" + value + "'");
-								} else { 																	// 如果不是string类型，直接填值
-									SET(fieldName + "=" + value);
-								}
-							}
+					for (String column : columns) {
+						Object o = map.get(column);
+						if (o instanceof String) { 													// 如果string类型, SQL里要加引号
+							SET(column + "='" + o.toString() + "'");
+						} else { 																	// 如果不是string类型，直接填值
+							String value = o == null ? "null" : o.toString();
+							SET(column + "=" + value);
 						}
 					}
 					//where 条件
@@ -144,8 +134,12 @@ public class CommonProvider {
 							Object o = field.get(t);
 							// 字段值不为null, 且不为"", 才作为条件进行查询
 							if (o != null && !"".equals(o.toString())) {
-								if (o instanceof String) { // 如果string类型, SQL里要加引号
+								if (o instanceof String) { 									// 如果string类型, SQL里要加引号
 									WHERE(fieldName + "='" + o + "'");
+								} else if(o instanceof Date){								// 如果Date作为查询条件
+									DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+									String value = format.format((Date)o);
+									WHERE(fieldName + "='" + value + "'");
 								} else { // 如果不是string类型，直接填值
 									WHERE(fieldName + "=" + o);
 								}

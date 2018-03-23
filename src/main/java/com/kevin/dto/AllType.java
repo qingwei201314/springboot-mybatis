@@ -24,9 +24,9 @@ public class AllType implements Serializable {
 	private BigDecimal numeric_s;
 	private String char_s;
 	private String varchar_s;
-	private Date date_s;
-	private Date time_s;
-	private Date year_s;
+	private String date_s;
+	private String time_s;
+	private String year_s;
 	private Date timestamp_s;
 	private Date datetime;
 	private String tinyblob_s;
@@ -162,27 +162,27 @@ public class AllType implements Serializable {
 		this.varchar_s = varchar_s;
 	}
 
-	public Date getDate_s() {
+	public String getDate_s() {
 		return date_s;
 	}
 
-	public void setDate_s(Date date_s) {
+	public void setDate_s(String date_s) {
 		this.date_s = date_s;
 	}
 
-	public Date getTime_s() {
+	public String getTime_s() {
 		return time_s;
 	}
 
-	public void setTime_s(Date time_s) {
+	public void setTime_s(String time_s) {
 		this.time_s = time_s;
 	}
 
-	public Date getYear_s() {
+	public String getYear_s() {
 		return year_s;
 	}
 
-	public void setYear_s(Date year_s) {
+	public void setYear_s(String year_s) {
 		this.year_s = year_s;
 	}
 

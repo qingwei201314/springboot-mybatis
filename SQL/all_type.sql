@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2018-03-21 20:03:45
+Date: 2018-03-23 10:54:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,8 +33,8 @@ CREATE TABLE `all_type` (
   `float_s` float NOT NULL,
   `decimal_s` decimal(10,0) NOT NULL,
   `numeric_s` decimal(10,0) NOT NULL,
-  `char_s` char(255) NOT NULL,
-  `varchar_s` varchar(255) NOT NULL,
+  `char_s` char(255) CHARACTER SET latin1 NOT NULL,
+  `varchar_s` varchar(255) CHARACTER SET latin1 NOT NULL,
   `date_s` date NOT NULL,
   `time_s` time NOT NULL,
   `year_s` year(4) NOT NULL,
@@ -44,21 +44,26 @@ CREATE TABLE `all_type` (
   `blob_s` blob NOT NULL,
   `mediumblob_s` mediumblob NOT NULL,
   `longblob_s` longblob NOT NULL,
-  `tinytext_s` tinytext NOT NULL,
-  `text_s` text NOT NULL,
-  `mediumtext_s` mediumtext NOT NULL,
-  `longtext_s` longtext NOT NULL,
-  `enum_s` enum('three','two','one') CHARACTER SET utf8 NOT NULL,
-  `set_s` set('d','c','b','a') CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `tinytext_s` tinytext CHARACTER SET latin1 NOT NULL,
+  `text_s` text CHARACTER SET latin1 NOT NULL,
+  `mediumtext_s` mediumtext CHARACTER SET latin1 NOT NULL,
+  `longtext_s` longtext CHARACTER SET latin1 NOT NULL,
+  `enum_s` enum('three','two','one') NOT NULL,
+  `set_s` set('d','c','b','a') NOT NULL DEFAULT '',
   `binary_s` binary(255) NOT NULL,
   `varbinary_s` varbinary(255) NOT NULL,
-  `point` point NOT NULL,
-  `linestring` linestring NOT NULL,
-  `polygon` polygon NOT NULL,
-  `geometry` geometry NOT NULL,
-  `multipoint` multipoint NOT NULL,
-  `multilinestring` multilinestring NOT NULL,
-  `multipolygon` multipolygon NOT NULL,
-  `geometrycollection` geometrycollection NOT NULL,
+  `point` point DEFAULT NULL,
+  `linestring` linestring DEFAULT NULL,
+  `polygon` polygon DEFAULT NULL,
+  `geometry` geometry DEFAULT NULL,
+  `multipoint` multipoint DEFAULT NULL,
+  `multilinestring` multilinestring DEFAULT NULL,
+  `multipolygon` multipolygon DEFAULT NULL,
+  `geometrycollection` geometrycollection DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of all_type
+-- ----------------------------
+INSERT INTO `all_type` VALUES ('11', '2', '2', '3', '4', '5', '6', '', '7', '8.08', '9.09', '10', '11', 'char_s', 'varchar_s', '2017-12-12', '15:27:32', '2018', '2018-03-23 10:45:22', '2018-03-23 10:43:02', 0x74696E79626C6F62, 0x626C6F625F73, 0x6D656469756D626C6F62, 0x6C6F6E67626C6F62, 'tinytext', 'text_s', 'mediumtext', 'longtext', 'one', 'c,b,a', 0x62696E617279000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, 0x76617262696E617279, null, null, null, null, null, null, null, null);

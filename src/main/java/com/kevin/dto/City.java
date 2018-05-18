@@ -13,10 +13,24 @@ public class City implements Serializable{
 	private Integer id;
 	@Column(name = "name")
 	private String name;
+	private String ename;
+	private String code;
 	private String state;
 	@Ignore
 	private String des;
 	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 	public String getName() {
 		return name;
 	}

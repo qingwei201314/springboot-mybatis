@@ -18,6 +18,7 @@ public class SpringBootController {
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;
+
 	}
 	
 }

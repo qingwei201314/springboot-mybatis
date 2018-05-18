@@ -15,9 +15,8 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public City home() {
-		City argCity = new City();
-		argCity.setId(2);
-		City city = cityMapper.find(argCity);
+		String name = "北京市";
+		City city = cityMapper.find(name);
 		return city;
 	}
 	

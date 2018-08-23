@@ -13,7 +13,6 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public City home() {
-		// 好的，可以提交了. by Kevin
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;

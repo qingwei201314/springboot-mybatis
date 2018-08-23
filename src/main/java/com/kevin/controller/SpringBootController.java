@@ -19,7 +19,7 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public String home() throws ParseException {
-		// commit me. I'm Kevin. where I'm
+		// commit me. I'm Kevin. where I'mdd
 //		AllType allType = new AllType();
 //		allType.setTinyint_s(1);
 //		allType.setSmallint_s(2);

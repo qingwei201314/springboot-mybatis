@@ -53,7 +53,7 @@ public class SpringBootController {
 //		allType.setBinary_s("binary");
 //		allType.setVarbinary_s("varbinary");
 //		allTypeMapper.save(allType);
-		
+
 		//查询操作
 //		AllType allType = new AllType();
 //		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -66,15 +66,15 @@ public class SpringBootController {
 //		System.out.println(temp.getYear_s());
 //		System.out.println(format.format(temp.getTimestamp_s()));
 //		System.out.println(format.format(temp.getDatetime()));
-		
+
 		//更新操作
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tinyint_s", 2);
 		allTypeMapper.update(11, map, AllType.class);
-		
+
 		//删除操作
 //		allTypeMapper.delete(10, AllType.class);
-		
+
 		return "success";
 	}
 	

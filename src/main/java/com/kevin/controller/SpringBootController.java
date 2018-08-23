@@ -15,7 +15,7 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public City home() {
-		// 测试company分支 , 测试2
+		// 现在切换到分支company
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;

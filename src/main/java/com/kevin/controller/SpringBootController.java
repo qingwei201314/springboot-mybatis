@@ -13,10 +13,6 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public City home() {
-		// conflict 222
-        // conflict 333
-		// 我增加了stash 222
-        // 我增加了stash 222
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;

@@ -13,7 +13,6 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public City home() {
-		// stash 在master上commit
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;

@@ -15,6 +15,7 @@ public class SpringBootController {
 	public City home() {
 		// conflict 222
         // conflict 333
+		// 我增加了stash
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;

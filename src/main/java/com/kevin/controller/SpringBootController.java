@@ -13,7 +13,6 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public City home() {
-		// 网站上加的内容, 会不会被pull 到本地
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;

@@ -15,7 +15,7 @@ public class SpringBootController {
 
 	@RequestMapping("/")
 	public City home() {
-		// stash 在master上commit
+		// 用git gui提交
 		String name = "北京市";
 		City city = cityMapper.find(name);
 		return city;
